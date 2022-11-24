@@ -1,10 +1,10 @@
 node('built-in') {
     stage('Clean and checkout code') {
         cleanWs()
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'SonarQube', url: 'https://github.com/Oded3012/hello-world-war.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-oded', url: 'https://github.com/Oded3012/hello-world-war.git']]])
     }
     stage('SonarQube scan') {
-        withSonarQubeEnv(installationName: 'SonarServer') {
+        withSonarQubeEnv(installationName: 'FinalProject-Sonar-Oded') {
             sh 'mvn clean sonar:sonar'
         }
     }
@@ -22,9 +22,9 @@ node('built-in') {
    }
     stage ('Docker Build+TAG') {
        sh 'git clone https://github.com/Oded3012/Infra-Oded.git'
-       dir('/opt/tomcat/.jenkins/workspace/Project5-hello-world-war/Infra-Oded') {
+       dir('/var/lib/jenkins/workspace/Project5-hello-world-war/Infra-Oded') {
        sh 'git checkout Dev'
-       sh 'cp Dockerfile /opt/tomcat/.jenkins/workspace/Project5-hello-world-war'
+       sh 'cp Dockerfile /var/lib/jenkins/workspace/Project5-hello-world-war'
    }
        sh 'docker build -t hello-world-war:$BUILD_ID .'
 }
