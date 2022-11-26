@@ -23,7 +23,7 @@ node('built-in') {
     stage ('Docker Build+TAG') {
        sh 'git clone https://github.com/Oded3012/Infra-Oded.git'
        dir('/var/lib/jenkins/pipeline-finalp/Infra-Oded') {
-       sh 'git checkout Dev'
+       git branch: '*/Dev', credentialsId: 'git-oded', url: 'https://github.com/Oded3012/Infra-Oded.git'
        sh 'cp Dockerfile /var/lib/jenkins/pipeline-finalp'
    }
        sh 'docker build -t hello-world-war:$BUILD_ID .'
