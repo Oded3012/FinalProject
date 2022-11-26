@@ -24,7 +24,7 @@ node('built-in') {
        sh 'git clone https://github.com/Oded3012/Infra-Oded.git'
        dir('/var/lib/jenkins/pipeline-finalp/Infra-Oded') {
        sh 'git checkout dev-ans'
-       sh 'cp Dockerfile /var/lib/jenkins/pipeline-finalp'
+       sh 'cp Dockerfile /var/lib/jenkins/workspace/pipeline-finalp'
    }
        sh 'docker build -t hello-world-war:$BUILD_ID .'
 }
