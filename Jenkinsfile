@@ -21,8 +21,8 @@ node('built-in') {
        archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
    }
     stage ('Docker Build+TAG') {
+       dir('/var/lib/jenkins/workspace/pipeline-finalp/
        sh 'git clone https://github.com/Oded3012/Infra-Oded.git'
-       dir('/var/lib/jenkins/workspace/pipeline-finalp/Infra-Oded') {
        sh 'git checkout Dev'
        sh 'cp Dockerfile /var/lib/jenkins/workspace/pipeline-finalp'
    }
