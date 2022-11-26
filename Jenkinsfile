@@ -1,7 +1,7 @@
 node('built-in') {
     stage('Clean and checkout code') {
         cleanWs()
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-oded', url: 'https://github.com/Oded3012/hello-world-war.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-oded', url: 'https://github.com/Oded3012/hello-world-war.git']]])
     }
     stage('SonarQube scan') {
         withSonarQubeEnv(installationName: 'FinalProject-Sonar-Oded') {
