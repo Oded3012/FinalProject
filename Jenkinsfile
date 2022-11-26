@@ -1,32 +1,19 @@
-node('built-in') {
-    stage('Clean and checkout code') {
-        cleanWs()
-    git branch: '*/main', credentialsId: 'git-oded', url: 'https://github.com/Oded3012/hello-world-war.git'
-
+pipeline {
+  agent any
+  stages {
+    stage('Checkout Scm') {
+      steps {
+       git branch: '*/main', credentialsId: 'git-oded', url: 'https://github.com/Oded3012/hello-world-war.git'
+      }
     }
-    stage('SonarQube scan') {
-        withSonarQubeEnv(installationName: 'FinalProject-Sonar-Oded') {
-            sh 'mvn clean sonar:sonar'
-        }
+    stage('Shell script 0') {
+      steps {
+        sh '''mvn clean verify sonar:sonar \\
+  -Dsonar.projectKey=moudle-5 \\
+  -Dsonar.host.url=http://192.168.1.243:9000 \\
+  -Dsonar.login=sqp_8cb5533d5dd30816f5e4bed51c476b0b1cfd54ee
+mvn compile && docker build -t hello_war:${BUILD_ID} .'''
+      }
     }
-    stage('Build') {
-        sh 'mvn compile'
-    }
-    stage('Test') {
-        sh 'mvn test'
-    }
-    stage('Package') {
-        sh 'mvn package'
-    }
-      stage('Publish artifact') {
-       archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
-   }
-    stage ('Docker Build+TAG') {
-       sh 'git clone https://github.com/Oded3012/Infra-Oded.git'
-       dir('/var/lib/jenkins/workspace/pipeline-finalp/Infra-Oded') {
-       sh 'git checkout Dev'
-       sh 'cp Dockerfile /var/lib/jenkins/workspace/pipeline-finalp'
-   }
-       sh 'docker build -t hello-world-war:$BUILD_ID .'
-}
+  }
 }
