@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Checkout Scm') {
       steps {
-       git branch: '*/master', credentialsId: 'git-oded', url: 'git@github.com:Oded3012/hello-world-war.git'
+       git branch: '*/master', credentialsId: 'git-oded', url: 'https://github.com/Oded3012/hello-world-war.git'
       }
     }
     stage('Shell script 0') {
