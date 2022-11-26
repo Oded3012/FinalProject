@@ -1,7 +1,7 @@
 node('built-in') {
     stage('Clean and checkout code') {
         cleanWs()
-    git branch: '*/main', credentialsId: 'git-oded', url: 'https://github.com/Oded3012/hello-world-war.git'
+    git branch: '*/main', credentialsId: 'git-oded', url: 'https://github.com/Oded3012/hello-world-war'
 
     }
     stage('SonarQube scan') {
