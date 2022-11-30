@@ -29,3 +29,4 @@ node('built-in') {
        sh 'docker build -t hello-world-war:$BUILD_ID .'
 }
 }
+nirshifman Devops
