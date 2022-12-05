@@ -35,4 +35,3 @@ node('built-in') {
        sh 'docker push 100.26.148.96:8082/Hello-World:$BUILD_ID'
    }
 }
-}
