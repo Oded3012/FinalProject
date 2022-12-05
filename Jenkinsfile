@@ -17,21 +17,21 @@ node('built-in') {
     stage('Package') {
         sh 'mvn package'
     }
-      stage('Publish artifact') {
-       archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
+    stage('Publish artifact') {
+        archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
    }
-    stage ('Docker Build+TAG') {
-       sh 'git clone https://github.com/Oded3012/Infra-Oded.git'
-       dir('/var/lib/jenkins/workspace/pipeline-finalp/Infra-Oded') 
-       sh 'git checkout main'
-       sh 'cp Dockerfile /var/lib/jenkins/workspace/pipeline-finalp'
-       sh 'docker build -t hello-world-war:$BUILD_ID .'
+    stage('Docker Build+TAG') {
+        sh 'git clone https://github.com/Oded3012/Infra-Oded.git'
+        dir('/var/lib/jenkins/workspace/pipeline-finalp/Infra-Oded') 
+        sh 'git checkout main'
+        sh 'cp Dockerfile /var/lib/jenkins/workspace/pipeline-finalp'
+        sh 'docker build -t hello-world-war:$BUILD_ID .'
   
    }
        
     stage('Push To Nexus Registry') {
-       sh 'docker login 100.26.148.96:8082'
-       sh 'docker tag hello-world-war:$BUILD_ID 100.26.148.96:8082/Hello-World:$BUILD_ID'
-       sh 'docker push 100.26.148.96:8082/Hello-World:$BUILD_ID'
+        sh 'docker login 100.26.148.96:8082'
+        sh 'docker tag hello-world-war:$BUILD_ID 100.26.148.96:8082/Hello-World:$BUILD_ID'
+        sh 'docker push 100.26.148.96:8082/Hello-World:$BUILD_ID'
    }
 }
