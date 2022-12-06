@@ -33,8 +33,8 @@ node('built-in') {
     }
        
     stage('Push To Nexus Registry') {
-        sh 'docker login -u admin -p oded3012 https://100.26.148.96:8082/repository/nio'
+        sh 'docker login -u admin -p oded3012 https://100.26.148.96:8081/repository/nio'
         sh 'docker tag hello-world-war:$BUILD_ID 100.26.148.96:8081/hello-world:$BUILD_ID'
-        sh 'docker push 100.26.148.96:8082/hello-world:$BUILD_ID'
+        sh 'docker push 100.26.148.96:8081/hello-world:$BUILD_ID'
     }
 }
