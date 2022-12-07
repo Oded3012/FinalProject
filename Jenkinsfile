@@ -28,7 +28,7 @@ node('built-in') {
         sh 'git checkout main'
         sh 'cp Dockerfile /var/lib/jenkins/workspace/pipeline-finalp'
     }
-        sh 'docker build -t hello-world-war:$BUILD_ID .'
+        sh 'sudo docker build -t hello-world-war:$BUILD_ID .'
   
     }
        
