@@ -33,7 +33,7 @@ node('built-in') {
     }
        
     stage('Push To Nexus Registry') {
-        sh 'docker login 184.73.211.202:8082'
+        sh 'docker login -u admin -p oded3012 184.73.211.202:8082'
         sh 'docker tag hello-world-war:$BUILD_ID 184.73.211.202:8082/Hello-World:$BUILD_ID'
         sh 'docker push 184.73.211.202:8082/Hello-World:$BUILD_ID'
     }
